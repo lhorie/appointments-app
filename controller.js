@@ -7,14 +7,43 @@ angular.module('appointments', ['appointment', 'geolocation']).config(function($
 })
 
 function ListCtrl($rootScope, $scope, $filter, $location, Appointment, Geolocation) {
-	$scope.appointments = Appointment.query()
+	var map = new google.maps.Map(document.getElementById('map'), {
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	})
+	var radius = new google.maps.Circle({
+		strokeColor: '#FF0000',
+		fillColor: '#FF0000',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillOpacity: 0.35,
+		map: map,
+		radius: $scope.radius * 1000
+	})
+	$scope.$watch(function() {
+		var mapCenter = new google.maps.LatLng($scope.currentPosition.latitude, $scope.currentPosition.longitude)
+		
+		radius.setCenter(mapCenter)
+		radius.setRadius($scope.radius * 1000)
+		
+		map.setCenter(mapCenter)
+		map.fitBounds(radius.getBounds())
+	})
 	
-	$scope.radius = 3
+	$scope.appointments = Appointment.query(function() {
+		$scope.appointments.forEach(function(appointment) {
+			new google.maps.Marker({
+				position: new google.maps.LatLng(appointment.latitude, appointment.longitude),
+				map: map,
+				title: appointment.address
+			})
+		})
+	})
+	
+	$scope.radius = 1
 	$scope.currentPosition = {latitude: 0, longitude: 0}
-	$scope.displayedAppointments = []
 	
 	$scope.nearby = function(item) {
-		if (!$scope.currentPosition) return false
+		if (!$scope.currentPosition.latitude) return false
 		else return Geolocation.getDistance(item, $scope.currentPosition) < (parseInt($scope.radius) || 5)
 	}
 
@@ -26,40 +55,6 @@ function ListCtrl($rootScope, $scope, $filter, $location, Appointment, Geolocati
 		$scope.$apply(function() {
 			$scope.disallowedGeolocation = true
 			$scope.disabledLocationServices = navigator.userAgent.match(/iPhone|iPad/)
-		})
-	})
-	
-	var map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 12,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	})
-	var radius = new google.maps.Circle({
-		strokeColor: '#FF0000',
-		strokeOpacity: 0.8,
-		strokeWeight: 2,
-		fillColor: '#FF0000',
-		fillOpacity: 0.35,
-		map: map,
-		radius: $scope.radius * 1000
-	})
-	
-	var markers = []
-	$scope.$watch(function() {
-		var mapCenter = new google.maps.LatLng($scope.currentPosition.latitude, $scope.currentPosition.longitude)
-		
-		radius.setCenter(mapCenter)
-		radius.setRadius($scope.radius * 1000)
-		markers.forEach(function(marker) {marker.setMap(null)})
-		map.setCenter(mapCenter)
-		map.fitBounds(radius.getBounds())
-		
-		$scope.displayedAppointments.forEach(function(appointment) {
-			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(appointment.latitude, appointment.longitude),
-				map: map,
-				title: appointment.address
-			})
-			markers.push(marker)
 		})
 	})
 }

@@ -3,14 +3,18 @@
 	<head>
 		<title>Appointments App Proof of Concept</title>
 		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
-		<style>th,td {border:1px solid #888;padding:5px;text-align:left;}</style>
+		<style>
+		#map img {max-width:none;}
+		#map label {display:inline;width:auto;}
+ 		th,td {border:1px solid #888;padding:5px;text-align:left;}
+		</style>
 	</head>
 	<body>
 		<div class="container">
 			<h1 class="control-group">Appointments</h1>
 			<div class="control-group" ng-view></div>
 			
-			<a href="https://github.com/lhorie/appointments-app">Project on GitHub</a>
+			<a class="btn" href="https://github.com/lhorie/appointments-app">Project on GitHub</a>
 		</div>
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
