@@ -6,7 +6,7 @@ angular.module('geolocation', ['ngResource']).factory('Geolocation', function($r
 	)
 	
 	Geolocation.getCurrentPosition = function(callback, error) {
-		navigator.geolocation.getCurrentPosition(callback)
+		navigator.geolocation.getCurrentPosition(callback, error || function() {})
 		navigator.geolocation.watchPosition(callback, error || function() {}, {enableHighAccuracy: true, maximumAge: 3000, timeout: 60000})
 	}
 	

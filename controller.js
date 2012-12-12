@@ -22,6 +22,10 @@ function ListCtrl($rootScope, $scope, $filter, $location, Appointment, Geolocati
 		$scope.$apply(function() {
 			$scope.currentPosition = position.coords
 		})
+	}, function() {
+		$scope.$apply(function() {
+			$scope.disabledLocationServices = navigator.userAgent.match(/iPhone|iPad/)
+		})
 	})
 	
 	var map = new google.maps.Map(document.getElementById('map'), {
