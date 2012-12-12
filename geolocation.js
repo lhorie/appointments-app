@@ -5,9 +5,14 @@ angular.module('geolocation', ['ngResource']).factory('Geolocation', function($r
 		{get: {method: 'JSONP', isArray: true}, query: {method: 'JSONP', isArray: true}}
 	)
 	
+	var currentPositionCache
 	Geolocation.getCurrentPosition = function(callback, error) {
-		navigator.geolocation.getCurrentPosition(callback, error || function() {})
-		navigator.geolocation.watchPosition(callback, error || function() {}, {enableHighAccuracy: true, maximumAge: 3000, timeout: 60000})
+		var success = function(position) {
+			callback(currentPositionCache = position)
+		}
+		navigator.geolocation.getCurrentPosition(success, error || function() {})
+		navigator.geolocation.watchPosition(success, error || function() {}, {enableHighAccuracy: true, maximumAge: 3000, timeout: 60000})
+		if (currentPositionCache) setTimeout(function() {success(currentPositionCache)}, 0)
 	}
 	
 	Geolocation.getDistance = function(p1, p2) {
