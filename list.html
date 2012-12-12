@@ -1,5 +1,6 @@
-<div class="alert alert-info" ng-show="disabledLocationServices">
-	This app uses the geolocation feature in your device. Make sure you have enabled it under <em>Settings &gt; Location Services</em>
+<div class="alert alert-info" ng-show="disallowedGeolocation">
+	This app requires the geolocation feature in your device.
+	<span ng-show="disabledLocationServices">Make sure you have enabled it under <em>Settings &gt; Location Services</em></span>
 </div>
 
 <div class="control-group input-append">

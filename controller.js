@@ -24,6 +24,7 @@ function ListCtrl($rootScope, $scope, $filter, $location, Appointment, Geolocati
 		})
 	}, function() {
 		$scope.$apply(function() {
+			$scope.disallowedGeolocation = true
 			$scope.disabledLocationServices = navigator.userAgent.match(/iPhone|iPad/)
 		})
 	})
