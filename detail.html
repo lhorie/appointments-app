@@ -1,0 +1,18 @@
+<form name="form">
+	<div class="control-group">
+		<label>Address</label>
+		<input name="address" ng-model="appointment.address" type="text" />
+	</div>
+	<div class="control-group">
+		<label>Customer Name</label>
+		<input name="customer" ng-model="appointment.customer" type="text" />
+	</div>
+	<div class="control-group">
+		<label>Appointment Notes</label>
+		<textarea name="notes" ng-model="appointment.notes"></textarea>
+	</div>
+	
+	<a href="#/" class="btn">Cancel</a>
+	<button class="btn btn-primary" ng-click="save()">Save</button>
+	<button class="btn btn-danger" ng-click="destroy()">Delete</button>
+</form>

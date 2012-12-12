@@ -1,0 +1,24 @@
+<div class="control-group input-append">
+	<label>Within a radius of:</label>
+	<input class="input-small" type="number" ng-model="radius" /> <span class="add-on">km</span>
+</div>
+
+<div class="control-group">
+	<table>
+		<tr>
+			<th>Address</th>
+			<th>Customer Name</th>
+			<th>Appointment Notes</th>
+			<th><a class="btn" href="#/new">Add</a></th>
+		</tr>
+		<tr ng-repeat="appointment in displayedAppointments = (appointments | filter:nearby)">
+			<td>{{appointment.address}}</td>
+			<td>{{appointment.customer}}</td>
+			<td>{{appointment.notes}}</td>
+			<td><a class="btn" href="#/edit/{{appointment._id.$oid}}">Details</a></td>
+		</tr>
+	</table>
+</div>
+
+<div id="map" class="control-group" style="height:600px;width:800px;"></div>
+

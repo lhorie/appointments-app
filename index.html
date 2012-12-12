@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="appointments">
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
+		<style>th,td {border:1px solid #888;padding:5px;text-align:left;}</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Appointments</h1>
+			<div ng-view></div>
+		</div>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+		<script src="controller.js"></script>
+		<script src="appointment.js"></script>
+		<script src="geolocation.js"></script>
+	</body>
+</html>
